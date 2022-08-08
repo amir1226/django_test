@@ -12,11 +12,7 @@ jobs:
     strategy:
       max-parallel: 4
       matrix:
-        python-version: [3.9]
-    env:
-      DATABASE_PASSWORD: ${{ secrets.DATABASE_PASSWORD }}
-      SECRET_KEY: ${{ secrets.SECRET_KEY }}
-      
+        python-version: [3.9]    
     steps:
     - uses: actions/checkout@v3
     - name: Set up Python ${{ matrix.python-version }}
@@ -31,7 +27,10 @@ jobs:
         echo $SECRET_KEY
         export TEST=Amir
         echo $TEST
-
+      env:
+        DATABASE_PASSWORD: ${{ secrets.DATABASE_PASSWORD }}
+        SECRET_KEY: ${{ secrets.SECRET_KEY }}
+        
     - name: Run Tests
       run: |
         pytest
