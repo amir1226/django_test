@@ -8,6 +8,11 @@ on:
 
 jobs:
   build:
+    environment:
+      name: first
+    env:
+        DATABASE_PASSWORD: ${{secrets.DATABASE_PASSWORD}}
+        SECRET_KEY: ${{secrets.SECRET_KEY}}
     runs-on: ubuntu-latest
     strategy:
       max-parallel: 4
@@ -25,12 +30,6 @@ jobs:
         pip install -r requirements.txt   
         echo $DATABASE_PASSWORD 
         echo $SECRET_KEY
-        export TEST=Amir
-        echo $TEST
-      env:
-        DATABASE_PASSWORD: ${{ secrets.DATABASE_PASSWORD }}
-        SECRET_KEY: ${{ secrets.SECRET_KEY }}
-        
     - name: Run Tests
       run: |
         pytest
